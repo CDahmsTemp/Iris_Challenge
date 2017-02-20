@@ -118,10 +118,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DetectClouds.cpp" />
+    <ClCompile Include="DetectHorizon.cpp" />
+    <ClCompile Include="DetectSetting.cpp" />
+    <ClCompile Include="DetectSun.cpp" />
+    <ClCompile Include="DetectTimeOfDay.cpp" />
+    <ClCompile Include="DetectWeatherConditions.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DetectClouds.h" />
+    <ClInclude Include="DetectHorizon.h" />
+    <ClInclude Include="DetectSetting.h" />
+    <ClInclude Include="DetectSun.h" />
+    <ClInclude Include="DetectTimeOfDay.h" />
+    <ClInclude Include="DetectWeatherConditions.h" />
+    <ClInclude Include="Main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
