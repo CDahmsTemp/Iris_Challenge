@@ -12,6 +12,7 @@
 
 
 // function prototypes ////////////////////////////////////////////////////////////////////////////
+void drawContour(cv::Mat image, std::vector<cv::Point> contour, cv::Scalar color, int thickness);
 void drawAndShowContour(cv::Size imageSize, std::vector<cv::Point> contour, std::string strImageName);
 void drawAndShowContours(cv::Size imageSize, std::vector<std::vector<cv::Point> > contours, std::string strImageName);
 cv::Point2f findContourCenterOfMass(std::vector<cv::Point> contour);

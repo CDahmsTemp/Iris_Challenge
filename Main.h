@@ -24,16 +24,10 @@ const cv::Scalar SCALAR_YELLOW = cv::Scalar(0.0, 255.0, 255.0);
 const cv::Scalar SCALAR_GREEN = cv::Scalar(0.0, 255.0, 0.0);
 const cv::Scalar SCALAR_RED = cv::Scalar(0.0, 0.0, 255.0);
 const cv::Scalar SCALAR_PURPLE = cv::Scalar(128.0, 0.0, 128.0);
+const cv::Scalar SCALAR_BLUE = cv::Scalar(255.0, 0.0, 0.0);
 
 // function prototypes ////////////////////////////////////////////////////////////////////////////
-void detectHorizon(cv::Mat &imgOriginal);
-void detectClouds(cv::Mat &imgOriginal);
-
-void detectTimeOfDay(cv::Mat &imgOriginal);
-void detectWeatherConditions(cv::Mat &imgOriginal);
-void detectSetting(cv::Mat &imgOriginal);
-
-
+void writeTextOnImage(cv::Mat &image, std::string text, cv::Scalar color);
 
 
 

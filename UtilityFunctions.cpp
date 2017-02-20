@@ -3,6 +3,13 @@
 #include "UtilityFunctions.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+void drawContour(cv::Mat image, std::vector<cv::Point> contour, cv::Scalar color, int thickness) {
+    std::vector<std::vector<cv::Point> > contours;
+    contours.push_back(contour);
+    cv::drawContours(image, contours, -1, color, thickness);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 void drawAndShowContour(cv::Size imageSize, std::vector<cv::Point> contour, std::string strImageName) {
     std::vector<std::vector<cv::Point> > contours;
     contours.push_back(contour);
@@ -25,7 +32,7 @@ cv::Point2f findContourCenterOfMass(std::vector<cv::Point> contour) {
     double xCenter = moments.m10 / moments.m00;
     double yCenter = moments.m01 / moments.m00;
 
-    return(cv::Point2f(xCenter, yCenter));
+    return(cv::Point2f((float)xCenter, (float)yCenter));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,7 +46,7 @@ std::vector<cv::Point> getLargestContour(std::vector<std::vector<cv::Point> > co
         if (cv::contourArea(contours[i]) > areaOfLargestContour) {
             // update the index of the largest contour and the area of the largest contour so far
             indexOfLargestContour = i;
-            areaOfLargestContour = cv::contourArea(contours[i]);
+            areaOfLargestContour = (int)cv::contourArea(contours[i]);
         }
     }
     return contours[indexOfLargestContour];

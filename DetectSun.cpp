@@ -3,7 +3,7 @@
 #include "DetectSun.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-void detectSun(cv::Mat &imgOriginal) {
+std::vector<cv::Point> detectSun(cv::Mat &imgOriginal) {
 
     cv::Mat imgHsv;
     cv::Mat imgHsvChannels[3];
@@ -62,20 +62,15 @@ void detectSun(cv::Mat &imgOriginal) {
     // if the inverted sat sun center of mass (the smaller sun) is inside the value sun (the larger sun), we've found the sun
     double sunWithinSun = cv::pointPolygonTest(valueSun, invertedSatSunCenterOfMass, false);
     if (sunWithinSun > 0.0) {
-        // suppose the smaller of the two overlapping contours is the outline of the sun
+        // suppose the smaller of the two overlapping contours is the outline of the sun, then return that smaller sun contour
         // ToDo: this is a bad assumption, fix this
         std::vector<cv::Point> smallerSunContour;
         if (cv::contourArea(valueSun) < cv::contourArea(invertedSatSun)) smallerSunContour = valueSun;
         else smallerSunContour = invertedSatSun;
-
-        // draw the smaller contour on the original image in purple
-        std::vector<std::vector<cv::Point> > contours;
-        contours.push_back(smallerSunContour);
-        cv::drawContours(imgOriginal, contours, -1, SCALAR_PURPLE, 4);
-
-
-
-
+        return smallerSunContour;
+    } else {    // else if a sun was not found, return an empty contour
+        std::vector<cv::Point> emptyContour;
+        return emptyContour;
     }
 }
 

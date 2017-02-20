@@ -11,15 +11,7 @@
 #include "UtilityFunctions.h"
 
 // function prototypes ////////////////////////////////////////////////////////////////////////////
-void detectSun(cv::Mat &imgOriginal);
-
+std::vector<cv::Point> detectSun(cv::Mat &imgOriginal);
 std::vector<std::vector<cv::Point> > processImageToConvexHullsLookingForSun(cv::Mat &image, std::string appendName);
-
-
-
-
-
-
-
 
 #endif	// DETECT_SUN
