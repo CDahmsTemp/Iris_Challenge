@@ -12,17 +12,15 @@ std::vector<cv::Point> detectSun(cv::Mat &imgOriginal) {
     cv::Mat imgValue;
 
     // convert to HSV
-    cv::cvtColor(imgOriginal, imgHsv, CV_BGR2HSV);       // convert to grayscale
+    cv::cvtColor(imgOriginal, imgHsv, CV_BGR2HSV);
                                                          
     // split HSV image into Hue, Sat, and Value
     cv::split(imgHsv, imgHsvChannels);
     imgHue = imgHsvChannels[0];
     imgSat = imgHsvChannels[1];
     imgValue = imgHsvChannels[2];
-
-    //cv::imshow("imgHue", imgHue);
-    //cv::imshow("imgSat", imgSat);
-    cv::imshow("imgValue", imgValue);
+    
+    // cv::imshow("imgValue", imgValue);
 
     // invert Hue, Sat, and Value
     cv::Mat imgInvertedHue = cv::Mat(imgOriginal.size(), CV_8UC3, SCALAR_BLACK);
@@ -32,9 +30,7 @@ std::vector<cv::Point> detectSun(cv::Mat &imgOriginal) {
     cv::bitwise_not(imgSat, imgInvertedSat);
     cv::bitwise_not(imgValue, imgInvertedValue);
 
-    //cv::imshow("imgInvertedHue", imgInvertedHue);
-    cv::imshow("imgInvertedSat", imgInvertedSat);
-    //cv::imshow("imgInvertedValue", imgInvertedValue);
+    //cv::imshow("imgInvertedSat", imgInvertedSat);
 
     // process the value and inverted sat images down to convex hulls
     std::vector<std::vector<cv::Point> > valueConvexHulls = processImageToConvexHullsLookingForSun(imgValue, " - Value");
@@ -42,18 +38,18 @@ std::vector<cv::Point> detectSun(cv::Mat &imgOriginal) {
 
     // for both value and inverted sat images, get only semi-circular convex hulls
     std::vector<std::vector<cv::Point> > circularValueConvexHulls = getCircularContours(valueConvexHulls, 0.5);
-    drawAndShowContours(imgOriginal.size(), circularValueConvexHulls, "circularValueConvexHulls");
+    //drawAndShowContours(imgOriginal.size(), circularValueConvexHulls, "circularValueConvexHulls");
 
     std::vector<std::vector<cv::Point> > circularInvertedSatConvexHulls = getCircularContours(invertedSatConvexHulls, 0.9);
-    drawAndShowContours(imgOriginal.size(), circularInvertedSatConvexHulls, "circularInvertedSatConvexHulls");
+    //drawAndShowContours(imgOriginal.size(), circularInvertedSatConvexHulls, "circularInvertedSatConvexHulls");
 
     // for both value and inverted sat images, get the largest circular convex hull
     // ToDo: assumption is made here that the largest circular contour will be the sun, this is wrong, fix this
     std::vector<cv::Point> valueSun = getLargestContour(circularValueConvexHulls);
-    drawAndShowContour(imgOriginal.size(), valueSun, "valueSun");
+    //drawAndShowContour(imgOriginal.size(), valueSun, "valueSun");
 
     std::vector<cv::Point> invertedSatSun = getLargestContour(circularInvertedSatConvexHulls);
-    drawAndShowContour(imgOriginal.size(), invertedSatSun, "invertedSatSun");
+    //drawAndShowContour(imgOriginal.size(), invertedSatSun, "invertedSatSun");
 
     // get the center of mass of both "suns"
     cv::Point2f invertedSatSunCenterOfMass = findContourCenterOfMass(invertedSatSun);

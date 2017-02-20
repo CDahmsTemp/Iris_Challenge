@@ -7,11 +7,11 @@
 #include<opencv2/highgui/highgui.hpp>
 #include<opencv2/imgproc/imgproc.hpp>
 
+#include "Main.h"
+#include "UtilityFunctions.h"
+
 // function prototypes ////////////////////////////////////////////////////////////////////////////
 void detectTimeOfDay(cv::Mat &imgOriginal);
-
-
-
 
 
 
