@@ -3,7 +3,9 @@
 #include "DetectTimeOfDay.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-TimeOfDayEnum detectTimeOfDay(cv::Mat &imgOriginal) {
+int detectTimeOfDay(cv::Mat &imgOriginal) {
+
+    // ToDo: this is a very crude time of day algorithm, when horizon line is found, probably should only look above that
 
     // find mean of grayscale image
 
@@ -13,9 +15,7 @@ TimeOfDayEnum detectTimeOfDay(cv::Mat &imgOriginal) {
 
     // find mean of grayscale image
     double grayscaleMean = findSingleChannelImageMean(imgGrayscale);
-
-    // show result on standard out
-    std::cout << "\n\n" << "grayscaleMean = " << grayscaleMean << "\n\n";
+    std::cout << "\n" << "grayscaleMean = " << grayscaleMean << "\n";
 
     // next, find mean of value image
 
@@ -33,22 +33,19 @@ TimeOfDayEnum detectTimeOfDay(cv::Mat &imgOriginal) {
 
     // find mean of value image
     double valueMean = findSingleChannelImageMean(imgValue);
-
-    // show result on standard out
-    std::cout << "\n\n" << "valueMean = " << valueMean << "\n\n";
+    std::cout << "\n" << "valueMean = " << valueMean << "\n";
 
     // average the grayscale mean and value mean, then use this as the daytime / dusk / nighttime metric
     double averageBrightness = (grayscaleMean + valueMean) / 2.0;
+    std::cout << "\n" << "averageBrightness = " << averageBrightness << "\n";
 
-    if (averageBrightness < DUSK_THRESHOLD) {
+    if (valueMean < DUSK_THRESHOLD) {
         return NIGHTTIME;
-    } else if (averageBrightness < DAYTIME_THRESHOLD) {
+    } else if (valueMean < DAYTIME_THRESHOLD) {
         return DUSK;
     } else {
         return DAYTIME;
     }
-
-
 
 }
 

@@ -26,8 +26,8 @@ const cv::Scalar SCALAR_RED = cv::Scalar(0.0, 0.0, 255.0);
 const cv::Scalar SCALAR_PURPLE = cv::Scalar(128.0, 0.0, 128.0);
 const cv::Scalar SCALAR_BLUE = cv::Scalar(255.0, 0.0, 0.0);
 
-const double DUSK_THRESHOLD = 30.0;
-const double DAYTIME_THRESHOLD = 100.0;
+const double DUSK_THRESHOLD = 20.0;
+const double DAYTIME_THRESHOLD = 130.0;
 
 enum TimeOfDayEnum { NIGHTTIME, DUSK, DAYTIME };
 

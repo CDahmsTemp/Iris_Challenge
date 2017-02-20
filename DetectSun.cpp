@@ -4,6 +4,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 std::vector<cv::Point> detectSun(cv::Mat &imgOriginal) {
+    std::vector<cv::Point> emptyContour;        // this will be the return value if a sun is not found
 
     cv::Mat imgHsv;
     cv::Mat imgHsvChannels[3];
@@ -36,6 +37,8 @@ std::vector<cv::Point> detectSun(cv::Mat &imgOriginal) {
     std::vector<std::vector<cv::Point> > valueConvexHulls = processImageToConvexHullsLookingForSun(imgValue, " - Value");
     std::vector<std::vector<cv::Point> > invertedSatConvexHulls = processImageToConvexHullsLookingForSun(imgInvertedSat, " - Inverted Sat");
 
+    if (valueConvexHulls.size() == 0 || invertedSatConvexHulls.size() == 0) return emptyContour;
+
     // for both value and inverted sat images, get only semi-circular convex hulls
     std::vector<std::vector<cv::Point> > circularValueConvexHulls = getCircularContours(valueConvexHulls, 0.5);
     //drawAndShowContours(imgOriginal.size(), circularValueConvexHulls, "circularValueConvexHulls");
@@ -64,8 +67,7 @@ std::vector<cv::Point> detectSun(cv::Mat &imgOriginal) {
         if (cv::contourArea(valueSun) < cv::contourArea(invertedSatSun)) smallerSunContour = valueSun;
         else smallerSunContour = invertedSatSun;
         return smallerSunContour;
-    } else {    // else if a sun was not found, return an empty contour
-        std::vector<cv::Point> emptyContour;
+    } else {    // else if a sun was not found, return an empty contour        
         return emptyContour;
     }
 }
