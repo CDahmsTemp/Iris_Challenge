@@ -6,7 +6,7 @@
 int main() {
     cv::Mat imgOriginal;
     
-    imgOriginal = cv::imread("image2.png");          // open image
+    imgOriginal = cv::imread("image7.png");          // open image
 
     if (imgOriginal.empty()) {                                  // if unable to open image
         std::cout << "error: image not read from file\n\n";     // show error message on command line
@@ -25,7 +25,16 @@ int main() {
         writeTextOnImage(imgOriginal, "Sun Found", SCALAR_BLUE);
     }
 
-    detectTimeOfDay(imgOriginal);
+    TimeOfDayEnum timeOfDay = detectTimeOfDay(imgOriginal);
+
+    if (timeOfDay == DAYTIME) writeTextOnImage(imgOriginal, "Daytime", SCALAR_GREEN);
+    else if (timeOfDay == DUSK) writeTextOnImage(imgOriginal, "Dusk", SCALAR_GREEN);
+    else writeTextOnImage(imgOriginal, "Nighttime", SCALAR_GREEN);
+    
+    
+
+
+
     detectWeatherConditions(imgOriginal);
     detectSetting(imgOriginal);
 

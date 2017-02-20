@@ -3,6 +3,12 @@
 #include "UtilityFunctions.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+double findSingleChannelImageMean(cv::Mat &imgSingleChannel) {
+    cv::Scalar scalarMean = cv::mean(imgSingleChannel);
+    return scalarMean[0];
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 void drawContour(cv::Mat image, std::vector<cv::Point> contour, cv::Scalar color, int thickness) {
     std::vector<std::vector<cv::Point> > contours;
     contours.push_back(contour);

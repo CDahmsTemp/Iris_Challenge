@@ -11,7 +11,7 @@
 #include "UtilityFunctions.h"
 
 // function prototypes ////////////////////////////////////////////////////////////////////////////
-void detectTimeOfDay(cv::Mat &imgOriginal);
+TimeOfDayEnum detectTimeOfDay(cv::Mat &imgOriginal);
 
 
 

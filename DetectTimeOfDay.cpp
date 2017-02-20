@@ -3,7 +3,7 @@
 #include "DetectTimeOfDay.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-void detectTimeOfDay(cv::Mat &imgOriginal) {
+TimeOfDayEnum detectTimeOfDay(cv::Mat &imgOriginal) {
 
     // find mean of grayscale image
 
@@ -11,9 +11,8 @@ void detectTimeOfDay(cv::Mat &imgOriginal) {
     cv::Mat imgGrayscale;
     cv::cvtColor(imgOriginal, imgGrayscale, CV_BGR2GRAY);
 
-    // use cv::mean() to get the mean of 4 channels, then get the mean of only the first channel (only relevant channel for this grayscale image)
-    cv::Scalar grayscaleMeanScalar = cv::mean(imgGrayscale);
-    double grayscaleMean = grayscaleMeanScalar[0];
+    // find mean of grayscale image
+    double grayscaleMean = findSingleChannelImageMean(imgGrayscale);
 
     // show result on standard out
     std::cout << "\n\n" << "grayscaleMean = " << grayscaleMean << "\n\n";
@@ -24,14 +23,32 @@ void detectTimeOfDay(cv::Mat &imgOriginal) {
     cv::Mat imgHsv;
     cv::cvtColor(imgOriginal, imgHsv, CV_BGR2HSV);
 
+    // split into 3 HSV channels
+    cv::Mat imgHsvChannels[3];
+    cv::split(imgHsv, imgHsvChannels);
+
+    // get value image
+    cv::Mat imgValue;
+    imgValue = imgHsvChannels[2];
+
+    // find mean of value image
+    double valueMean = findSingleChannelImageMean(imgValue);
+
+    // show result on standard out
+    std::cout << "\n\n" << "valueMean = " << valueMean << "\n\n";
+
+    // average the grayscale mean and value mean, then use this as the daytime / dusk / nighttime metric
+    double averageBrightness = (grayscaleMean + valueMean) / 2.0;
+
+    if (averageBrightness < DUSK_THRESHOLD) {
+        return NIGHTTIME;
+    } else if (averageBrightness < DAYTIME_THRESHOLD) {
+        return DUSK;
+    } else {
+        return DAYTIME;
+    }
 
 
-
-
-
-
-
-    int dummy99 = 1 + 2;
 
 }
 
