@@ -125,6 +125,7 @@
     <ClCompile Include="DetectTimeOfDay.cpp" />
     <ClCompile Include="DetectWeatherConditions.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="UtilityFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -137,6 +138,7 @@
     <ClInclude Include="DetectTimeOfDay.h" />
     <ClInclude Include="DetectWeatherConditions.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="UtilityFunctions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
