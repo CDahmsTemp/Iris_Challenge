@@ -6,7 +6,7 @@
 int main() {
     cv::Mat imgOriginal;
     
-    imgOriginal = cv::imread("image24.png");          // open image
+    imgOriginal = cv::imread("image2.png");          // open image
 
     if (imgOriginal.empty()) {                                  // if unable to open image
         std::cout << "error: image not read from file\n\n";     // show error message on command line
